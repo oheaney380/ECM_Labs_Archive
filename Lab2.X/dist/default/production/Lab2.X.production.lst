@@ -1,0 +1,716 @@
+
+
+Microchip Technology PIC18 LITE Macro Assembler V1.35 build -356382666 
+                                                                                               Mon Feb 05 17:33:02 2018
+
+Microchip Technology Omniscient Code Generator v1.35 (Free mode) build 201507080246
+     1                           	processor	18F4331
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	lm
+     5                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     6                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1
+     7                           	psect	text0,global,reloc=2,class=CODE,delta=1
+     8                           	psect	text1,global,reloc=2,class=CODE,delta=1
+     9                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1
+    10                           	psect	rparam,global,class=COMRAM,space=1,delta=1
+    11  0000                     _ADCON0	set	4034
+    12  0000                     _ADCON0bits	set	4034
+    13  0000                     _ADCON1	set	4033
+    14  0000                     _ADCON2	set	4032
+    15  0000                     _ADRESH	set	4036
+    16  0000                     _ADRESL	set	4035
+    17  0000                     _ANSEL0	set	4024
+    18  0000                     _ANSEL1	set	4025
+    19  0000                     _LATC	set	3979
+    20  0000                     _LATD	set	3980
+    21  0000                     _TRISA	set	3986
+    22  0000                     _TRISC	set	3988
+    23  0000                     _TRISD	set	3989
+    24                           
+    25                           ; #config settings
+    26                           
+    27                           	psect	cinit
+    28  001D96                     __pcinit:
+    29                           	opt stack 0
+    30  001D96                     start_initialization:
+    31                           	opt stack 0
+    32  001D96                     __initialization:
+    33                           	opt stack 0
+    34  001D96                     end_of_initialization:
+    35                           	opt stack 0
+    36  001D96                     __end_of__initialization:
+    37                           	opt stack 0
+    38  001D96  0100               	movlb	0
+    39  001D98  EFF8  F00E         	goto	_main	;jump to C main() function
+    40                           
+    41                           	psect	cstackCOMRAM
+    42  000001                     __pcstackCOMRAM:
+    43                           	opt stack 0
+    44  000001                     LEDout@number:
+    45                           	opt stack 0
+    46                           
+    47                           ; 2 bytes @ 0x0
+    48  000001                     	ds	2
+    49  000003                     ??_LEDout:
+    50                           
+    51                           ; 0 bytes @ 0x2
+    52  000003                     	ds	4
+    53  000007                     ??_main:
+    54                           
+    55                           ; 0 bytes @ 0x6
+    56  000007                     	ds	2
+    57  000009                     main@counter:
+    58                           	opt stack 0
+    59                           
+    60                           ; 1 bytes @ 0x8
+    61  000009                     	ds	1
+    62  00000A                     main@ledCount:
+    63                           	opt stack 0
+    64                           
+    65                           ; 1 bytes @ 0x9
+    66  00000A                     	ds	1
+    67  00000B                     main@storeValLedCount:
+    68                           	opt stack 0
+    69                           
+    70                           ; 1 bytes @ 0xA
+    71  00000B                     	ds	1
+    72  00000C                     main@storeVal:
+    73                           	opt stack 0
+    74                           
+    75                           ; 1 bytes @ 0xB
+    76  00000C                     	ds	1
+    77  00000D                     main@ADResult:
+    78                           	opt stack 0
+    79                           
+    80                           ; 2 bytes @ 0xC
+    81  00000D                     	ds	2
+    82                           
+    83 ;;
+    84 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+    85 ;;
+    86 ;; *************** function _main *****************
+    87 ;; Defined at:
+    88 ;;		line 25 in file "main.c"
+    89 ;; Parameters:    Size  Location     Type
+    90 ;;		None
+    91 ;; Auto vars:     Size  Location     Type
+    92 ;;  ADResult        2   12[COMRAM] unsigned int 
+    93 ;;  storeVal        1   11[COMRAM] unsigned char 
+    94 ;;  storeValLedC    1   10[COMRAM] unsigned char 
+    95 ;;  ledCount        1    9[COMRAM] unsigned char 
+    96 ;;  counter         1    8[COMRAM] unsigned char 
+    97 ;; Return value:  Size  Location     Type
+    98 ;;		None               void
+    99 ;; Registers used:
+   100 ;;		wreg, status,2, status,0, cstack
+   101 ;; Tracked objects:
+   102 ;;		On entry : 0/0
+   103 ;;		On exit  : 0/0
+   104 ;;		Unchanged: 0/0
+   105 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2
+   106 ;;      Params:         0       0       0       0
+   107 ;;      Locals:         6       0       0       0
+   108 ;;      Temps:          2       0       0       0
+   109 ;;      Totals:         8       0       0       0
+   110 ;;Total ram usage:        8 bytes
+   111 ;; Hardware stack levels required when called:    1
+   112 ;; This function calls:
+   113 ;;		_LEDout
+   114 ;; This function is called by:
+   115 ;;		Startup code after reset
+   116 ;; This function uses a non-reentrant model
+   117 ;;
+   118                           
+   119                           	psect	text0
+   120  001DF0                     __ptext0:
+   121                           	opt stack 0
+   122  001DF0                     _main:
+   123                           	opt stack 30
+   124                           
+   125                           ;main.c: 27: unsigned int ADResult=0;
+   126                           
+   127                           ;incstack = 0
+   128  001DF0  0E00               	movlw	0
+   129  001DF2  6E0E               	movwf	main@ADResult+1,c
+   130  001DF4  0E00               	movlw	0
+   131  001DF6  6E0D               	movwf	main@ADResult,c
+   132                           
+   133                           ;main.c: 28: unsigned char ledCount=0;
+   134  001DF8  0E00               	movlw	0
+   135  001DFA  6E0A               	movwf	main@ledCount,c
+   136                           
+   137                           ;main.c: 29: unsigned char counter=0;
+   138  001DFC  0E00               	movlw	0
+   139  001DFE  6E09               	movwf	main@counter,c
+   140                           
+   141                           ;main.c: 30: unsigned char storeVal=0;
+   142  001E00  0E00               	movlw	0
+   143  001E02  6E0C               	movwf	main@storeVal,c
+   144                           
+   145                           ;main.c: 31: unsigned char storeValLedCount=0;
+   146  001E04  0E00               	movlw	0
+   147  001E06  6E0B               	movwf	main@storeValLedCount,c
+   148                           
+   149                           ;main.c: 33: LATC=0;
+   150  001E08  0E00               	movlw	0
+   151  001E0A  6E8B               	movwf	3979,c	;volatile
+   152                           
+   153                           ;main.c: 34: LATD=0;
+   154  001E0C  0E00               	movlw	0
+   155  001E0E  6E8C               	movwf	3980,c	;volatile
+   156                           
+   157                           ;main.c: 35: TRISC=0b00001000;
+   158  001E10  0E08               	movlw	8
+   159  001E12  6E94               	movwf	3988,c	;volatile
+   160                           
+   161                           ;main.c: 36: TRISD=0;
+   162  001E14  0E00               	movlw	0
+   163  001E16  6E95               	movwf	3989,c	;volatile
+   164                           
+   165                           ;main.c: 37: TRISA = 0b00001000;
+   166  001E18  0E08               	movlw	8
+   167  001E1A  6E92               	movwf	3986,c	;volatile
+   168                           
+   169                           ;main.c: 38: ANSEL0 = 0b00001000;
+   170  001E1C  0E08               	movlw	8
+   171  001E1E  6EB8               	movwf	4024,c	;volatile
+   172                           
+   173                           ;main.c: 39: ANSEL1 = 0;
+   174  001E20  0E00               	movlw	0
+   175  001E22  6EB9               	movwf	4025,c	;volatile
+   176                           
+   177                           ;main.c: 41: ADCON0=0b00001101;
+   178  001E24  0E0D               	movlw	13
+   179  001E26  6EC2               	movwf	4034,c	;volatile
+   180                           
+   181                           ;main.c: 42: ADCON1=0b00000000;
+   182  001E28  0E00               	movlw	0
+   183  001E2A  6EC1               	movwf	4033,c	;volatile
+   184                           
+   185                           ;main.c: 44: ADCON2=0b10101011;
+   186  001E2C  0EAB               	movlw	171
+   187  001E2E  6EC0               	movwf	4032,c	;volatile
+   188  001E30                     l811:
+   189                           
+   190                           ;main.c: 47: ADCON0bits.GO=1;
+   191  001E30  82C2               	bsf	4034,1,c	;volatile
+   192  001E32                     l39:
+   193  001E32  B2C2               	btfsc	4034,1,c	;volatile
+   194  001E34  D7FE               	goto	l39
+   195                           
+   196                           ;main.c: 51: ADResult =ADRESL;
+   197  001E36  CFC3 F00D          	movff	4035,main@ADResult	;volatile
+   198  001E3A  6A0E               	clrf	main@ADResult+1,c
+   199                           
+   200                           ;main.c: 52: ADResult += ((unsigned int)ADRESH << 8);
+   201  001E3C  50C4               	movf	4036,w,c	;volatile
+   202  001E3E  260E               	addwf	main@ADResult+1,f,c
+   203                           
+   204                           ;main.c: 54: ADResult = ADResult>>2;
+   205  001E40  C00D  F007         	movff	main@ADResult,??_main
+   206  001E44  C00E  F008         	movff	main@ADResult+1,??_main+1
+   207  001E48  90D8               	bcf	status,0,c
+   208  001E4A  3208               	rrcf	??_main+1,f,c
+   209  001E4C  3207               	rrcf	??_main,f,c
+   210  001E4E  90D8               	bcf	status,0,c
+   211  001E50  3208               	rrcf	??_main+1,f,c
+   212  001E52  3207               	rrcf	??_main,f,c
+   213  001E54  C007  F00D         	movff	??_main,main@ADResult
+   214  001E58  C008  F00E         	movff	??_main+1,main@ADResult+1
+   215                           
+   216                           ;main.c: 56: if (ADResult < 100) {
+   217  001E5C  500E               	movf	main@ADResult+1,w,c
+   218  001E5E  E106               	bnz	l821
+   219  001E60  0E64               	movlw	100
+   220  001E62  5C0D               	subwf	main@ADResult,w,c
+   221  001E64  B0D8               	btfsc	status,0,c
+   222  001E66  D002               	goto	l821
+   223                           
+   224                           ;main.c: 57: ledCount = 0b11111111;
+   225  001E68  680A               	setf	main@ledCount,c
+   226                           
+   227                           ;main.c: 58: } else if (100 <= ADResult & ADResult < 110) {
+   228  001E6A  D064               	goto	l865
+   229  001E6C                     l821:
+   230  001E6C  500E               	movf	main@ADResult+1,w,c
+   231  001E6E  E104               	bnz	u370
+   232  001E70  0E64               	movlw	100
+   233  001E72  5C0D               	subwf	main@ADResult,w,c
+   234  001E74  A0D8               	btfss	status,0,c
+   235  001E76  D008               	goto	l827
+   236  001E78                     u370:
+   237  001E78  500E               	movf	main@ADResult+1,w,c
+   238  001E7A  E106               	bnz	l827
+   239  001E7C  0E6E               	movlw	110
+   240  001E7E  5C0D               	subwf	main@ADResult,w,c
+   241  001E80  B0D8               	btfsc	status,0,c
+   242  001E82  D002               	goto	l827
+   243                           
+   244                           ;main.c: 59: ledCount = 0b01111111;
+   245  001E84  0E7F               	movlw	127
+   246  001E86  D055               	goto	L7
+   247  001E88                     l827:
+   248  001E88  500E               	movf	main@ADResult+1,w,c
+   249  001E8A  E104               	bnz	u390
+   250  001E8C  0E6E               	movlw	110
+   251  001E8E  5C0D               	subwf	main@ADResult,w,c
+   252  001E90  A0D8               	btfss	status,0,c
+   253  001E92  D008               	goto	l833
+   254  001E94                     u390:
+   255  001E94  500E               	movf	main@ADResult+1,w,c
+   256  001E96  E106               	bnz	l833
+   257  001E98  0E78               	movlw	120
+   258  001E9A  5C0D               	subwf	main@ADResult,w,c
+   259  001E9C  B0D8               	btfsc	status,0,c
+   260  001E9E  D002               	goto	l833
+   261                           
+   262                           ;main.c: 61: ledCount = 0b00111111;
+   263  001EA0  0E3F               	movlw	63
+   264  001EA2  D047               	goto	L7
+   265  001EA4                     l833:
+   266  001EA4  500E               	movf	main@ADResult+1,w,c
+   267  001EA6  E104               	bnz	u410
+   268  001EA8  0E78               	movlw	120
+   269  001EAA  5C0D               	subwf	main@ADResult,w,c
+   270  001EAC  A0D8               	btfss	status,0,c
+   271  001EAE  D008               	goto	l839
+   272  001EB0                     u410:
+   273  001EB0  500E               	movf	main@ADResult+1,w,c
+   274  001EB2  E106               	bnz	l839
+   275  001EB4  0E82               	movlw	130
+   276  001EB6  5C0D               	subwf	main@ADResult,w,c
+   277  001EB8  B0D8               	btfsc	status,0,c
+   278  001EBA  D002               	goto	l839
+   279                           
+   280                           ;main.c: 63: ledCount = 0b00011111;
+   281  001EBC  0E1F               	movlw	31
+   282  001EBE  D039               	goto	L7
+   283  001EC0                     l839:
+   284  001EC0  500E               	movf	main@ADResult+1,w,c
+   285  001EC2  E104               	bnz	u430
+   286  001EC4  0E82               	movlw	130
+   287  001EC6  5C0D               	subwf	main@ADResult,w,c
+   288  001EC8  A0D8               	btfss	status,0,c
+   289  001ECA  D008               	goto	l845
+   290  001ECC                     u430:
+   291  001ECC  500E               	movf	main@ADResult+1,w,c
+   292  001ECE  E106               	bnz	l845
+   293  001ED0  0E8C               	movlw	140
+   294  001ED2  5C0D               	subwf	main@ADResult,w,c
+   295  001ED4  B0D8               	btfsc	status,0,c
+   296  001ED6  D002               	goto	l845
+   297                           
+   298                           ;main.c: 65: ledCount = 0b00001111;
+   299  001ED8  0E0F               	movlw	15
+   300  001EDA  D02B               	goto	L7
+   301  001EDC                     l845:
+   302  001EDC  500E               	movf	main@ADResult+1,w,c
+   303  001EDE  E104               	bnz	u450
+   304  001EE0  0E8C               	movlw	140
+   305  001EE2  5C0D               	subwf	main@ADResult,w,c
+   306  001EE4  A0D8               	btfss	status,0,c
+   307  001EE6  D008               	goto	l851
+   308  001EE8                     u450:
+   309  001EE8  500E               	movf	main@ADResult+1,w,c
+   310  001EEA  E106               	bnz	l851
+   311  001EEC  0E96               	movlw	150
+   312  001EEE  5C0D               	subwf	main@ADResult,w,c
+   313  001EF0  B0D8               	btfsc	status,0,c
+   314  001EF2  D002               	goto	l851
+   315                           
+   316                           ;main.c: 67: ledCount = 0b00000111;
+   317  001EF4  0E07               	movlw	7
+   318  001EF6  D01D               	goto	L7
+   319  001EF8                     l851:
+   320  001EF8  500E               	movf	main@ADResult+1,w,c
+   321  001EFA  E104               	bnz	u470
+   322  001EFC  0E96               	movlw	150
+   323  001EFE  5C0D               	subwf	main@ADResult,w,c
+   324  001F00  A0D8               	btfss	status,0,c
+   325  001F02  D008               	goto	l857
+   326  001F04                     u470:
+   327  001F04  500E               	movf	main@ADResult+1,w,c
+   328  001F06  E106               	bnz	l857
+   329  001F08  0EA0               	movlw	160
+   330  001F0A  5C0D               	subwf	main@ADResult,w,c
+   331  001F0C  B0D8               	btfsc	status,0,c
+   332  001F0E  D002               	goto	l857
+   333                           
+   334                           ;main.c: 69: ledCount = 0b00000011;
+   335  001F10  0E03               	movlw	3
+   336  001F12  D00F               	goto	L7
+   337  001F14                     l857:
+   338  001F14  500E               	movf	main@ADResult+1,w,c
+   339  001F16  E104               	bnz	u490
+   340  001F18  0EA0               	movlw	160
+   341  001F1A  5C0D               	subwf	main@ADResult,w,c
+   342  001F1C  A0D8               	btfss	status,0,c
+   343  001F1E  D008               	goto	l863
+   344  001F20                     u490:
+   345  001F20  500E               	movf	main@ADResult+1,w,c
+   346  001F22  E106               	bnz	l863
+   347  001F24  0EAA               	movlw	170
+   348  001F26  5C0D               	subwf	main@ADResult,w,c
+   349  001F28  B0D8               	btfsc	status,0,c
+   350  001F2A  D002               	goto	l863
+   351                           
+   352                           ;main.c: 71: ledCount = 0b00000001;
+   353  001F2C  0E01               	movlw	1
+   354  001F2E  D001               	goto	L7
+   355  001F30                     l863:
+   356                           
+   357                           ;main.c: 73: ledCount = 0b00000000;
+   358  001F30  0E00               	movlw	0
+   359  001F32                     L7:
+   360  001F32  6E0A               	movwf	main@ledCount,c
+   361  001F34                     l865:
+   362                           
+   363                           ;main.c: 74: }
+   364                           ;main.c: 76: counter++;
+   365  001F34  2A09               	incf	main@counter,f,c
+   366                           
+   367                           ;main.c: 77: if (ADResult<=storeVal) {
+   368  001F36  500C               	movf	main@storeVal,w,c
+   369  001F38  6E07               	movwf	??_main& (0+255),c
+   370  001F3A  6A08               	clrf	(??_main+1)& (0+255),c
+   371  001F3C  500D               	movf	main@ADResult,w,c
+   372  001F3E  5C07               	subwf	??_main,w,c
+   373  001F40  500E               	movf	main@ADResult+1,w,c
+   374  001F42  5808               	subwfb	??_main+1,w,c
+   375  001F44  A0D8               	btfss	status,0,c
+   376  001F46  D00A               	goto	l875
+   377                           
+   378                           ;main.c: 78: storeVal=ADResult;
+   379  001F48  C00D  F00C         	movff	main@ADResult,main@storeVal
+   380                           
+   381                           ;main.c: 79: LEDout(ledCount);
+   382  001F4C  C00A  F001         	movff	main@ledCount,LEDout@number
+   383  001F50  6A02               	clrf	LEDout@number+1,c
+   384  001F52  ECCE  F00E         	call	_LEDout	;wreg free
+   385                           
+   386                           ;main.c: 80: counter=0;
+   387  001F56  0E00               	movlw	0
+   388  001F58  6E09               	movwf	main@counter,c
+   389                           
+   390                           ;main.c: 81: } else {
+   391  001F5A  D76A               	goto	l811
+   392  001F5C                     l875:
+   393                           
+   394                           ;main.c: 82: if (storeVal < 100) {
+   395  001F5C  0E64               	movlw	100
+   396  001F5E  600C               	cpfslt	main@storeVal,c
+   397  001F60  D002               	goto	l879
+   398                           
+   399                           ;main.c: 83: storeValLedCount = 0b10000000;
+   400  001F62  0E80               	movlw	128
+   401  001F64  D039               	goto	L15
+   402  001F66                     l879:
+   403  001F66  0E63               	movlw	99
+   404  001F68  640C               	cpfsgt	main@storeVal,c
+   405  001F6A  D005               	goto	l885
+   406  001F6C  0E6E               	movlw	110
+   407  001F6E  600C               	cpfslt	main@storeVal,c
+   408  001F70  D002               	goto	l885
+   409                           
+   410                           ;main.c: 85: storeValLedCount = 0b01000000;
+   411  001F72  0E40               	movlw	64
+   412  001F74  D031               	goto	L15
+   413  001F76                     l885:
+   414  001F76  0E6D               	movlw	109
+   415  001F78  640C               	cpfsgt	main@storeVal,c
+   416  001F7A  D005               	goto	l891
+   417  001F7C  0E78               	movlw	120
+   418  001F7E  600C               	cpfslt	main@storeVal,c
+   419  001F80  D002               	goto	l891
+   420                           
+   421                           ;main.c: 87: storeValLedCount = 0b00100000;
+   422  001F82  0E20               	movlw	32
+   423  001F84  D029               	goto	L15
+   424  001F86                     l891:
+   425  001F86  0E77               	movlw	119
+   426  001F88  640C               	cpfsgt	main@storeVal,c
+   427  001F8A  D005               	goto	l897
+   428  001F8C  0E82               	movlw	130
+   429  001F8E  600C               	cpfslt	main@storeVal,c
+   430  001F90  D002               	goto	l897
+   431                           
+   432                           ;main.c: 89: storeValLedCount = 0b00010000;
+   433  001F92  0E10               	movlw	16
+   434  001F94  D021               	goto	L15
+   435  001F96                     l897:
+   436  001F96  0E81               	movlw	129
+   437  001F98  640C               	cpfsgt	main@storeVal,c
+   438  001F9A  D005               	goto	l903
+   439  001F9C  0E8C               	movlw	140
+   440  001F9E  600C               	cpfslt	main@storeVal,c
+   441  001FA0  D002               	goto	l903
+   442                           
+   443                           ;main.c: 91: storeValLedCount = 0b00001000;
+   444  001FA2  0E08               	movlw	8
+   445  001FA4  D019               	goto	L15
+   446  001FA6                     l903:
+   447  001FA6  0E8B               	movlw	139
+   448  001FA8  640C               	cpfsgt	main@storeVal,c
+   449  001FAA  D005               	goto	l909
+   450  001FAC  0E96               	movlw	150
+   451  001FAE  600C               	cpfslt	main@storeVal,c
+   452  001FB0  D002               	goto	l909
+   453                           
+   454                           ;main.c: 93: storeValLedCount = 0b00000100;
+   455  001FB2  0E04               	movlw	4
+   456  001FB4  D011               	goto	L15
+   457  001FB6                     l909:
+   458  001FB6  0E95               	movlw	149
+   459  001FB8  640C               	cpfsgt	main@storeVal,c
+   460  001FBA  D005               	goto	l915
+   461  001FBC  0EA0               	movlw	160
+   462  001FBE  600C               	cpfslt	main@storeVal,c
+   463  001FC0  D002               	goto	l915
+   464                           
+   465                           ;main.c: 95: storeValLedCount = 0b00000010;
+   466  001FC2  0E02               	movlw	2
+   467  001FC4  D009               	goto	L15
+   468  001FC6                     l915:
+   469  001FC6  0E9F               	movlw	159
+   470  001FC8  640C               	cpfsgt	main@storeVal,c
+   471  001FCA  D005               	goto	l921
+   472  001FCC  0EAA               	movlw	170
+   473  001FCE  600C               	cpfslt	main@storeVal,c
+   474  001FD0  D002               	goto	l921
+   475                           
+   476                           ;main.c: 97: storeValLedCount = 0b00000001;
+   477  001FD2  0E01               	movlw	1
+   478  001FD4  D001               	goto	L15
+   479  001FD6                     l921:
+   480                           
+   481                           ;main.c: 99: storeValLedCount = 0b00000000;
+   482  001FD6  0E00               	movlw	0
+   483  001FD8                     L15:
+   484  001FD8  6E0B               	movwf	main@storeValLedCount,c
+   485                           
+   486                           ;main.c: 100: }
+   487                           ;main.c: 102: if (counter>5) {
+   488  001FDA  0E05               	movlw	5
+   489  001FDC  6409               	cpfsgt	main@counter,c
+   490  001FDE  D008               	goto	l929
+   491                           
+   492                           ;main.c: 103: storeValLedCount=storeValLedCount>>1;
+   493  001FE0  90D8               	bcf	status,0,c
+   494  001FE2  300B               	rrcf	main@storeValLedCount,w,c
+   495  001FE4  6E0B               	movwf	main@storeValLedCount,c
+   496                           
+   497                           ;main.c: 104: storeVal=storeVal+10;
+   498  001FE6  500C               	movf	main@storeVal,w,c
+   499  001FE8  0F0A               	addlw	10
+   500  001FEA  6E0C               	movwf	main@storeVal,c
+   501                           
+   502                           ;main.c: 105: counter=0;
+   503  001FEC  0E00               	movlw	0
+   504  001FEE  6E09               	movwf	main@counter,c
+   505  001FF0                     l929:
+   506                           
+   507                           ;main.c: 106: }
+   508                           ;main.c: 108: LEDout(ledCount+storeValLedCount);
+   509  001FF0  500A               	movf	main@ledCount,w,c
+   510  001FF2  240B               	addwf	main@storeValLedCount,w,c
+   511  001FF4  6E01               	movwf	LEDout@number,c
+   512  001FF6  6A02               	clrf	LEDout@number+1,c
+   513  001FF8  3602               	rlcf	LEDout@number+1,f,c
+   514  001FFA  ECCE  F00E         	call	_LEDout	;wreg free
+   515  001FFE  D718               	goto	l811
+   516  002000                     __end_of_main:
+   517                           	opt stack 0
+   518                           status	equ	0xFD8
+   519                           
+   520 ;; *************** function _LEDout *****************
+   521 ;; Defined at:
+   522 ;;		line 19 in file "main.c"
+   523 ;; Parameters:    Size  Location     Type
+   524 ;;  number          2    0[COMRAM] int 
+   525 ;; Auto vars:     Size  Location     Type
+   526 ;;		None
+   527 ;; Return value:  Size  Location     Type
+   528 ;;		None               void
+   529 ;; Registers used:
+   530 ;;		wreg, status,2, status,0
+   531 ;; Tracked objects:
+   532 ;;		On entry : 0/0
+   533 ;;		On exit  : 0/0
+   534 ;;		Unchanged: 0/0
+   535 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2
+   536 ;;      Params:         2       0       0       0
+   537 ;;      Locals:         0       0       0       0
+   538 ;;      Temps:          4       0       0       0
+   539 ;;      Totals:         6       0       0       0
+   540 ;;Total ram usage:        6 bytes
+   541 ;; Hardware stack levels used:    1
+   542 ;; This function calls:
+   543 ;;		Nothing
+   544 ;; This function is called by:
+   545 ;;		_main
+   546 ;; This function uses a non-reentrant model
+   547 ;;
+   548                           
+   549                           	psect	text1
+   550  001D9C                     __ptext1:
+   551                           	opt stack 0
+   552  001D9C                     _LEDout:
+   553                           	opt stack 30
+   554                           
+   555                           ;main.c: 21: LATC=(number & 0b00111100)<<2 | (LATC & 0b00001111);
+   556                           
+   557                           ;incstack = 0
+   558  001D9C  CF8B F003          	movff	3979,??_LEDout	;volatile
+   559  001DA0  0E0F               	movlw	15
+   560  001DA2  1603               	andwf	??_LEDout,f,c
+   561  001DA4  C001  F004         	movff	LEDout@number,??_LEDout+1
+   562  001DA8  0E3C               	movlw	60
+   563  001DAA  1604               	andwf	??_LEDout+1,f,c
+   564  001DAC  90D8               	bcf	status,0,c
+   565  001DAE  3604               	rlcf	??_LEDout+1,f,c
+   566  001DB0  90D8               	bcf	status,0,c
+   567  001DB2  3404               	rlcf	??_LEDout+1,w,c
+   568  001DB4  1003               	iorwf	??_LEDout,w,c
+   569  001DB6  6E8B               	movwf	3979,c	;volatile
+   570                           
+   571                           ;main.c: 22: LATD=(number & 0b11000000)>>2 | (number & 0b00000011)<<2 | (LATD & 0b100000
+      +                          11);
+   572  001DB8  CF8C F003          	movff	3980,??_LEDout	;volatile
+   573  001DBC  0E83               	movlw	131
+   574  001DBE  1603               	andwf	??_LEDout,f,c
+   575  001DC0  C001  F004         	movff	LEDout@number,??_LEDout+1
+   576  001DC4  0E03               	movlw	3
+   577  001DC6  1604               	andwf	??_LEDout+1,f,c
+   578  001DC8  90D8               	bcf	status,0,c
+   579  001DCA  3604               	rlcf	??_LEDout+1,f,c
+   580  001DCC  90D8               	bcf	status,0,c
+   581  001DCE  3604               	rlcf	??_LEDout+1,f,c
+   582  001DD0  C001  F005         	movff	LEDout@number,??_LEDout+2
+   583  001DD4  C002  F006         	movff	LEDout@number+1,??_LEDout+3
+   584  001DD8  3406               	rlcf	??_LEDout+3,w,c
+   585  001DDA  3206               	rrcf	??_LEDout+3,f,c
+   586  001DDC  3205               	rrcf	??_LEDout+2,f,c
+   587  001DDE  3406               	rlcf	??_LEDout+3,w,c
+   588  001DE0  3206               	rrcf	??_LEDout+3,f,c
+   589  001DE2  3205               	rrcf	??_LEDout+2,f,c
+   590  001DE4  5005               	movf	??_LEDout+2,w,c
+   591  001DE6  0B30               	andlw	48
+   592  001DE8  1004               	iorwf	??_LEDout+1,w,c
+   593  001DEA  1003               	iorwf	??_LEDout,w,c
+   594  001DEC  6E8C               	movwf	3980,c	;volatile
+   595  001DEE  0012               	return		;funcret
+   596  001DF0                     __end_of_LEDout:
+   597                           	opt stack 0
+   598  0000                     status	equ	0xFD8
+   599                           status	equ	0xFD8
+   600                           
+   601                           	psect	rparam
+   602  0000                     status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         0
+    Persistent  0
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           95     14      14
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMRAM
+
+    _main->_LEDout
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 8     8      0    1064
+                                              6 COMRAM     8     8      0
+                             _LEDout
+ ---------------------------------------------------------------------------------
+ (1) _LEDout                                               6     4      2     152
+                                              0 COMRAM     6     4      2
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 1
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _LEDout
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BITCOMRAM           5F      0       0       0        0.0%
+EEDATA             100      0       0       0        0.0%
+NULL                 0      0       0       0        0.0%
+CODE                 0      0       0       0        0.0%
+COMRAM              5F      E       E       1       14.7%
+STACK                0      0       0       2        0.0%
+ABS                  0      0       0       3        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BIGRAM             2FF      0       0      10        0.0%
+DATA                 0      0       0      11        0.0%
+BITSFR               0      0       0      40        0.0%
+SFR                  0      0       0      40        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.35 build -356382666 
+Symbol Table                                                                                   Mon Feb 05 17:33:02 2018
+
+                     l39 1E32                      l811 1E30                      l821 1E6C  
+                    l903 1FA6                      l921 1FD6                      l833 1EA4  
+                    l915 1FC6                      l851 1EF8                      l827 1E88  
+                    l909 1FB6                      l845 1EDC                      l863 1F30  
+                    l839 1EC0                      l929 1FF0                      l857 1F14  
+                    l865 1F34                      l891 1F86                      l875 1F5C  
+                    l885 1F76                      l879 1F66                      l897 1F96  
+                    u410 1EB0                      u430 1ECC                      u450 1EE8  
+                    u370 1E78                      u470 1F04                      u390 1E94  
+                    u490 1F20                     _LATC 000F8B                     _LATD 000F8C  
+            main@counter 0009                     _main 1DF0                     start 0000  
+           ___param_bank 000010             main@ledCount 000A                    ?_main 0001  
+                  _TRISA 000F92                    _TRISC 000F94                    _TRISD 000F95  
+                  status 000FD8             main@storeVal 000C          __initialization 1D96  
+           __end_of_main 2000                   ??_main 0007            __activetblptr 000000  
+                 _ADCON0 000FC2                   _ADCON1 000FC1                   _ADCON2 000FC0  
+                 _ADRESH 000FC4                   _ADRESL 000FC3                   _ANSEL0 000FB8  
+                 _ANSEL1 000FB9                   _LEDout 1D9C               __accesstop 0060  
+__end_of__initialization 1D96            ___rparam_used 000001           __pcstackCOMRAM 0001  
+                ?_LEDout 0001          __size_of_LEDout 0054                  __Hparam 0000  
+                __Lparam 0000                  __pcinit 1D96                  __ramtop 0300  
+                __ptext0 1DF0                  __ptext1 1D9C     end_of_initialization 1D96  
+           LEDout@number 0001           __end_of_LEDout 1DF0      start_initialization 1D96  
+               ??_LEDout 0003     main@storeValLedCount 000B               _ADCON0bits 000FC2  
+               __Hrparam 0000                 __Lrparam 0000            __size_of_main 0210  
+           main@ADResult 000D  

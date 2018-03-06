@@ -1,0 +1,919 @@
+
+
+Microchip Technology PIC18 LITE Macro Assembler V1.35 build -356382666 
+                                                                                               Mon Feb 05 17:27:14 2018
+
+Microchip Technology Omniscient Code Generator v1.35 (Free mode) build 201507080246
+     1                           	processor	18F4331
+     2                           	fnconf	rparam,??,?,0
+     3                           	opt	pw 120
+     4                           	opt	lm
+     5                           	psect	nvCOMRAM,global,class=COMRAM,space=1,delta=1
+     6                           	psect	cinit,global,reloc=2,class=CODE,delta=1
+     7                           	psect	bssCOMRAM,global,class=COMRAM,space=1,delta=1
+     8                           	psect	cstackCOMRAM,global,class=COMRAM,space=1,delta=1
+     9                           	psect	text0,global,reloc=2,class=CODE,delta=1
+    10                           	psect	text1,global,reloc=2,class=CODE,delta=1
+    11                           	psect	text2,global,reloc=2,class=CODE,delta=1
+    12                           	psect	intcodelo,global,reloc=2,class=CODE,delta=1
+    13                           	psect	text4,global,reloc=2,class=CODE,delta=1
+    14                           	psect	text5,global,reloc=2,class=CODE,delta=1
+    15                           	psect	intsave_regs,global,class=BIGRAM,space=1,delta=1
+    16                           	psect	rparam,global,class=COMRAM,space=1,delta=1
+    17                           	psect	temp,global,ovrld,common,class=COMRAM,space=1,delta=1
+    18  0000                     
+    19                           	psect	nvCOMRAM
+    20  00001C                     __pnvCOMRAM:
+    21                           	opt stack 0
+    22  00001C                     _ADResult:
+    23                           	opt stack 0
+    24  00001C                     	ds	2
+    25  0000                     _ADCON0	set	4034
+    26  0000                     _ADCON0bits	set	4034
+    27  0000                     _ADCON1	set	4033
+    28  0000                     _ADCON2	set	4032
+    29  0000                     _ADRESH	set	4036
+    30  0000                     _ADRESL	set	4035
+    31  0000                     _ANSEL0	set	4024
+    32  0000                     _ANSEL1	set	4025
+    33  0000                     _INTCON2bits	set	4081
+    34  0000                     _INTCONbits	set	4082
+    35  0000                     _LATC	set	3979
+    36  0000                     _LATD	set	3980
+    37  0000                     _RCONbits	set	4048
+    38  0000                     _T0CONbits	set	4053
+    39  0000                     _TMR0L	set	4054
+    40  0000                     _TRISA	set	3986
+    41  0000                     _TRISC	set	3988
+    42  0000                     _TRISD	set	3989
+    43                           
+    44                           ; #config settings
+    45  0000                     
+    46                           	psect	cinit
+    47  00020A                     __pcinit:
+    48                           	opt stack 0
+    49  00020A                     start_initialization:
+    50                           	opt stack 0
+    51  00020A                     __initialization:
+    52                           	opt stack 0
+    53                           
+    54                           ; Clear objects allocated to COMRAM (1 bytes)
+    55  00020A  6A1E               	clrf	__pbssCOMRAM& (0+255),c
+    56  00020C                     end_of_initialization:
+    57                           	opt stack 0
+    58  00020C                     __end_of__initialization:
+    59                           	opt stack 0
+    60  00020C  901F               	bcf	int$flags,0,c	;clear compiler interrupt flag (level 1)
+    61  00020E  921F               	bcf	int$flags,1,c	;clear compiler interrupt flag (level 2)
+    62  000210  0100               	movlb	0
+    63  000212  EF5A  F000         	goto	_main	;jump to C main() function
+    64                           
+    65                           	psect	bssCOMRAM
+    66  00001E                     __pbssCOMRAM:
+    67                           	opt stack 0
+    68  00001E                     _ledCount:
+    69                           	opt stack 0
+    70  00001E                     	ds	1
+    71                           
+    72                           	psect	cstackCOMRAM
+    73  000001                     __pcstackCOMRAM:
+    74                           	opt stack 0
+    75  000001                     ?i1_getLDR:
+    76                           	opt stack 0
+    77                           
+    78                           ; 2 bytes @ 0x0
+    79  000001                     	ds	2
+    80  000003                     ??i1_getLDR:
+    81                           
+    82                           ; 0 bytes @ 0x2
+    83  000003                     	ds	2
+    84  000005                     ??_InterruptHandlerLow:
+    85                           
+    86                           ; 0 bytes @ 0x4
+    87  000005                     	ds	17
+    88  000016                     ?_getLDR:
+    89                           	opt stack 0
+    90  000016                     LEDout@number:
+    91                           	opt stack 0
+    92                           
+    93                           ; 2 bytes @ 0x15
+    94  000016                     	ds	2
+    95  000018                     ??_LEDout:
+    96  000018                     ??_getLDR:
+    97                           
+    98                           ; 0 bytes @ 0x17
+    99  000018                     	ds	4
+   100  00001C                     
+   101                           ; 0 bytes @ 0x1B
+   102 ;;
+   103 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   104 ;;
+   105 ;; *************** function _main *****************
+   106 ;; Defined at:
+   107 ;;		line 64 in file "main.c"
+   108 ;; Parameters:    Size  Location     Type
+   109 ;;		None
+   110 ;; Auto vars:     Size  Location     Type
+   111 ;;		None
+   112 ;; Return value:  Size  Location     Type
+   113 ;;		None               void
+   114 ;; Registers used:
+   115 ;;		wreg, status,2, status,0, cstack
+   116 ;; Tracked objects:
+   117 ;;		On entry : 0/0
+   118 ;;		On exit  : 0/0
+   119 ;;		Unchanged: 0/0
+   120 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2
+   121 ;;      Params:         0       0       0       0
+   122 ;;      Locals:         0       0       0       0
+   123 ;;      Temps:          0       0       0       0
+   124 ;;      Totals:         0       0       0       0
+   125 ;;Total ram usage:        0 bytes
+   126 ;; Hardware stack levels required when called:    4
+   127 ;; This function calls:
+   128 ;;		_LEDout
+   129 ;;		_getLDR
+   130 ;; This function is called by:
+   131 ;;		Startup code after reset
+   132 ;; This function uses a non-reentrant model
+   133 ;;
+   134                           
+   135                           	psect	text0
+   136  0000B4                     __ptext0:
+   137                           	opt stack 0
+   138  0000B4                     _main:
+   139                           	opt stack 27
+   140                           
+   141                           ;main.c: 69: TMR0L=0;
+   142                           
+   143                           ;incstack = 0
+   144  0000B4  0E00               	movlw	0
+   145  0000B6  6ED6               	movwf	4054,c	;volatile
+   146                           
+   147                           ;main.c: 72: INTCONbits.GIEH = 1;
+   148  0000B8  8EF2               	bsf	intcon,7,c	;volatile
+   149                           
+   150                           ;main.c: 73: RCONbits.IPEN = 1;
+   151  0000BA  8ED0               	bsf	4048,7,c	;volatile
+   152                           
+   153                           ;main.c: 74: INTCONbits.GIEL = 1;
+   154  0000BC  8CF2               	bsf	intcon,6,c	;volatile
+   155                           
+   156                           ;main.c: 77: INTCONbits.INT0IE = 1;
+   157  0000BE  88F2               	bsf	intcon,4,c	;volatile
+   158                           
+   159                           ;main.c: 80: T0CONbits.TMR0ON=0;
+   160  0000C0  9ED5               	bcf	4053,7,c	;volatile
+   161                           
+   162                           ;main.c: 81: T0CONbits.T016BIT=1;
+   163  0000C2  8CD5               	bsf	4053,6,c	;volatile
+   164                           
+   165                           ;main.c: 82: T0CONbits.T0CS=1;
+   166  0000C4  8AD5               	bsf	4053,5,c	;volatile
+   167                           
+   168                           ;main.c: 83: T0CONbits.PSA=0;
+   169  0000C6  96D5               	bcf	4053,3,c	;volatile
+   170                           
+   171                           ;main.c: 84: T0CONbits.T0PS=0b111;
+   172  0000C8  80D5               	bsf	4053,0,c	;volatile
+   173  0000CA  82D5               	bsf	4053,1,c	;volatile
+   174  0000CC  84D5               	bsf	4053,2,c	;volatile
+   175                           
+   176                           ;main.c: 88: INTCONbits.TMR0IE=1;
+   177  0000CE  8AF2               	bsf	intcon,5,c	;volatile
+   178                           
+   179                           ;main.c: 89: INTCON2bits.TMR0IP=0;
+   180  0000D0  94F1               	bcf	intcon2,2,c	;volatile
+   181                           
+   182                           ;main.c: 91: LATC=0;
+   183  0000D2  0E00               	movlw	0
+   184  0000D4  6E8B               	movwf	3979,c	;volatile
+   185                           
+   186                           ;main.c: 92: LATD=0;
+   187  0000D6  0E00               	movlw	0
+   188  0000D8  6E8C               	movwf	3980,c	;volatile
+   189                           
+   190                           ;main.c: 93: TRISC=0b00001000;
+   191  0000DA  0E08               	movlw	8
+   192  0000DC  6E94               	movwf	3988,c	;volatile
+   193                           
+   194                           ;main.c: 94: TRISD=0;
+   195  0000DE  0E00               	movlw	0
+   196  0000E0  6E95               	movwf	3989,c	;volatile
+   197                           
+   198                           ;main.c: 95: TRISA = 0b00001000;
+   199  0000E2  0E08               	movlw	8
+   200  0000E4  6E92               	movwf	3986,c	;volatile
+   201                           
+   202                           ;main.c: 96: ANSEL0 = 0b00001000;
+   203  0000E6  0E08               	movlw	8
+   204  0000E8  6EB8               	movwf	4024,c	;volatile
+   205                           
+   206                           ;main.c: 97: ANSEL1 = 0;
+   207  0000EA  0E00               	movlw	0
+   208  0000EC  6EB9               	movwf	4025,c	;volatile
+   209                           
+   210                           ;main.c: 99: ADCON0=0b00001101;
+   211  0000EE  0E0D               	movlw	13
+   212  0000F0  6EC2               	movwf	4034,c	;volatile
+   213                           
+   214                           ;main.c: 100: ADCON1=0b00000000;
+   215  0000F2  0E00               	movlw	0
+   216  0000F4  6EC1               	movwf	4033,c	;volatile
+   217                           
+   218                           ;main.c: 102: ADCON2=0b10101011;
+   219  0000F6  0EAB               	movlw	171
+   220  0000F8  6EC0               	movwf	4032,c	;volatile
+   221  0000FA                     l810:
+   222                           
+   223                           ;main.c: 106: ADResult=getLDR();
+   224  0000FA  ECC8  F000         	call	_getLDR	;wreg free
+   225  0000FE  C016  F01C         	movff	?_getLDR,_ADResult
+   226  000102  C017  F01D         	movff	?_getLDR+1,_ADResult+1
+   227                           
+   228                           ;main.c: 108: if (ADResult < 100 & ledCount==0) {
+   229  000106  501D               	movf	_ADResult+1,w,c
+   230  000108  E107               	bnz	l818
+   231  00010A  0E64               	movlw	100
+   232  00010C  5C1C               	subwf	_ADResult,w,c
+   233  00010E  B0D8               	btfsc	status,0,c
+   234  000110  D003               	goto	l818
+   235  000112  501E               	movf	_ledCount,w,c
+   236  000114  B4D8               	btfsc	status,2,c
+   237  000116  D009               	goto	l822
+   238  000118                     l818:
+   239  000118  501D               	movf	_ADResult+1,w,c
+   240  00011A  E104               	bnz	u140
+   241  00011C  0E79               	movlw	121
+   242  00011E  5C1C               	subwf	_ADResult,w,c
+   243  000120  A0D8               	btfss	status,0,c
+   244  000122  D005               	goto	l70
+   245  000124                     u140:
+   246  000124  281E               	incf	_ledCount,w,c
+   247  000126  A4D8               	btfss	status,2,c
+   248  000128  D002               	goto	l70
+   249  00012A                     l822:
+   250                           
+   251                           ;main.c: 111: T0CONbits.TMR0ON=1;
+   252  00012A  8ED5               	bsf	4053,7,c	;volatile
+   253                           
+   254                           ;main.c: 112: } else {
+   255  00012C  D001               	goto	l824
+   256  00012E                     l70:
+   257                           
+   258                           ;main.c: 113: T0CONbits.TMR0ON=0;
+   259  00012E  9ED5               	bcf	4053,7,c	;volatile
+   260  000130                     l824:
+   261                           
+   262                           ;main.c: 114: }
+   263                           ;main.c: 116: LEDout(ledCount);
+   264  000130  C01E  F016         	movff	_ledCount,LEDout@number
+   265  000134  6A17               	clrf	LEDout@number+1,c
+   266  000136  EC9E  F000         	call	_LEDout	;wreg free
+   267  00013A  D7DF               	goto	l810
+   268  00013C                     __end_of_main:
+   269                           	opt stack 0
+   270                           intcon	equ	0xFF2
+   271                           intcon2	equ	0xFF1
+   272                           status	equ	0xFD8
+   273                           
+   274 ;; *************** function _getLDR *****************
+   275 ;; Defined at:
+   276 ;;		line 30 in file "main.c"
+   277 ;; Parameters:    Size  Location     Type
+   278 ;;		None
+   279 ;; Auto vars:     Size  Location     Type
+   280 ;;		None
+   281 ;; Return value:  Size  Location     Type
+   282 ;;                  2   21[COMRAM] unsigned int 
+   283 ;; Registers used:
+   284 ;;		wreg, status,2, status,0
+   285 ;; Tracked objects:
+   286 ;;		On entry : 0/0
+   287 ;;		On exit  : 0/0
+   288 ;;		Unchanged: 0/0
+   289 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2
+   290 ;;      Params:         2       0       0       0
+   291 ;;      Locals:         0       0       0       0
+   292 ;;      Temps:          2       0       0       0
+   293 ;;      Totals:         4       0       0       0
+   294 ;;Total ram usage:        4 bytes
+   295 ;; Hardware stack levels used:    1
+   296 ;; Hardware stack levels required when called:    3
+   297 ;; This function calls:
+   298 ;;		Nothing
+   299 ;; This function is called by:
+   300 ;;		_main
+   301 ;; This function uses a non-reentrant model
+   302 ;;
+   303                           
+   304                           	psect	text1
+   305  000190                     __ptext1:
+   306                           	opt stack 0
+   307  000190                     _getLDR:
+   308                           	opt stack 27
+   309                           
+   310                           ;main.c: 32: ADCON0bits.GO=1;
+   311                           
+   312                           ;incstack = 0
+   313  000190  82C2               	bsf	4034,1,c	;volatile
+   314  000192                     l52:
+   315  000192  B2C2               	btfsc	4034,1,c	;volatile
+   316  000194  D7FE               	goto	l52
+   317                           
+   318                           ;main.c: 36: ADResult =ADRESL;
+   319  000196  CFC3 F01C          	movff	4035,_ADResult	;volatile
+   320  00019A  6A1D               	clrf	_ADResult+1,c
+   321                           
+   322                           ;main.c: 37: ADResult += ((unsigned int)ADRESH << 8);
+   323  00019C  50C4               	movf	4036,w,c	;volatile
+   324  00019E  261D               	addwf	_ADResult+1,f,c
+   325                           
+   326                           ;main.c: 39: ADResult = ADResult>>2;
+   327  0001A0  C01C  F018         	movff	_ADResult,??_getLDR
+   328  0001A4  C01D  F019         	movff	_ADResult+1,??_getLDR+1
+   329  0001A8  90D8               	bcf	status,0,c
+   330  0001AA  3219               	rrcf	??_getLDR+1,f,c
+   331  0001AC  3218               	rrcf	??_getLDR,f,c
+   332  0001AE  90D8               	bcf	status,0,c
+   333  0001B0  3219               	rrcf	??_getLDR+1,f,c
+   334  0001B2  3218               	rrcf	??_getLDR,f,c
+   335  0001B4  C018  F01C         	movff	??_getLDR,_ADResult
+   336  0001B8  C019  F01D         	movff	??_getLDR+1,_ADResult+1
+   337                           
+   338                           ;main.c: 41: return ADResult;
+   339  0001BC  C01C  F016         	movff	_ADResult,?_getLDR
+   340  0001C0  C01D  F017         	movff	_ADResult+1,?_getLDR+1
+   341  0001C4  0012               	return	
+   342  0001C6                     __end_of_getLDR:
+   343                           	opt stack 0
+   344                           intcon	equ	0xFF2
+   345                           intcon2	equ	0xFF1
+   346                           status	equ	0xFD8
+   347                           
+   348 ;; *************** function _LEDout *****************
+   349 ;; Defined at:
+   350 ;;		line 23 in file "main.c"
+   351 ;; Parameters:    Size  Location     Type
+   352 ;;  number          2   21[COMRAM] int 
+   353 ;; Auto vars:     Size  Location     Type
+   354 ;;		None
+   355 ;; Return value:  Size  Location     Type
+   356 ;;		None               void
+   357 ;; Registers used:
+   358 ;;		wreg, status,2, status,0
+   359 ;; Tracked objects:
+   360 ;;		On entry : 0/0
+   361 ;;		On exit  : 0/0
+   362 ;;		Unchanged: 0/0
+   363 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2
+   364 ;;      Params:         2       0       0       0
+   365 ;;      Locals:         0       0       0       0
+   366 ;;      Temps:          4       0       0       0
+   367 ;;      Totals:         6       0       0       0
+   368 ;;Total ram usage:        6 bytes
+   369 ;; Hardware stack levels used:    1
+   370 ;; Hardware stack levels required when called:    3
+   371 ;; This function calls:
+   372 ;;		Nothing
+   373 ;; This function is called by:
+   374 ;;		_main
+   375 ;; This function uses a non-reentrant model
+   376 ;;
+   377                           
+   378                           	psect	text2
+   379  00013C                     __ptext2:
+   380                           	opt stack 0
+   381  00013C                     _LEDout:
+   382                           	opt stack 27
+   383                           
+   384                           ;main.c: 25: LATC=(number & 0b00111100)<<2 | (LATC & 0b00001111);
+   385                           
+   386                           ;incstack = 0
+   387  00013C  CF8B F018          	movff	3979,??_LEDout	;volatile
+   388  000140  0E0F               	movlw	15
+   389  000142  1618               	andwf	??_LEDout,f,c
+   390  000144  C016  F019         	movff	LEDout@number,??_LEDout+1
+   391  000148  0E3C               	movlw	60
+   392  00014A  1619               	andwf	??_LEDout+1,f,c
+   393  00014C  90D8               	bcf	status,0,c
+   394  00014E  3619               	rlcf	??_LEDout+1,f,c
+   395  000150  90D8               	bcf	status,0,c
+   396  000152  3419               	rlcf	??_LEDout+1,w,c
+   397  000154  1018               	iorwf	??_LEDout,w,c
+   398  000156  6E8B               	movwf	3979,c	;volatile
+   399                           
+   400                           ;main.c: 26: LATD=(number & 0b11000000)>>2 | (number & 0b00000011)<<2 | (LATD & 0b100000
+      +                          11);
+   401  000158  CF8C F018          	movff	3980,??_LEDout	;volatile
+   402  00015C  0E83               	movlw	131
+   403  00015E  1618               	andwf	??_LEDout,f,c
+   404  000160  C016  F019         	movff	LEDout@number,??_LEDout+1
+   405  000164  0E03               	movlw	3
+   406  000166  1619               	andwf	??_LEDout+1,f,c
+   407  000168  90D8               	bcf	status,0,c
+   408  00016A  3619               	rlcf	??_LEDout+1,f,c
+   409  00016C  90D8               	bcf	status,0,c
+   410  00016E  3619               	rlcf	??_LEDout+1,f,c
+   411  000170  C016  F01A         	movff	LEDout@number,??_LEDout+2
+   412  000174  C017  F01B         	movff	LEDout@number+1,??_LEDout+3
+   413  000178  341B               	rlcf	??_LEDout+3,w,c
+   414  00017A  321B               	rrcf	??_LEDout+3,f,c
+   415  00017C  321A               	rrcf	??_LEDout+2,f,c
+   416  00017E  341B               	rlcf	??_LEDout+3,w,c
+   417  000180  321B               	rrcf	??_LEDout+3,f,c
+   418  000182  321A               	rrcf	??_LEDout+2,f,c
+   419  000184  501A               	movf	??_LEDout+2,w,c
+   420  000186  0B30               	andlw	48
+   421  000188  1019               	iorwf	??_LEDout+1,w,c
+   422  00018A  1018               	iorwf	??_LEDout,w,c
+   423  00018C  6E8C               	movwf	3980,c	;volatile
+   424  00018E  0012               	return		;funcret
+   425  000190                     __end_of_LEDout:
+   426                           	opt stack 0
+   427                           intcon	equ	0xFF2
+   428                           intcon2	equ	0xFF1
+   429                           status	equ	0xFD8
+   430                           
+   431 ;; *************** function _InterruptHandlerLow *****************
+   432 ;; Defined at:
+   433 ;;		line 55 in file "main.c"
+   434 ;; Parameters:    Size  Location     Type
+   435 ;;		None
+   436 ;; Auto vars:     Size  Location     Type
+   437 ;;		None
+   438 ;; Return value:  Size  Location     Type
+   439 ;;		None               void
+   440 ;; Registers used:
+   441 ;;		wreg, status,2, status,0, cstack
+   442 ;; Tracked objects:
+   443 ;;		On entry : 0/0
+   444 ;;		On exit  : 0/0
+   445 ;;		Unchanged: 0/0
+   446 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2
+   447 ;;      Params:         0       0       0       0
+   448 ;;      Locals:         0       0       0       0
+   449 ;;      Temps:         17       0       0       0
+   450 ;;      Totals:        17       0       0       0
+   451 ;;Total ram usage:       17 bytes
+   452 ;; Hardware stack levels used:    1
+   453 ;; Hardware stack levels required when called:    2
+   454 ;; This function calls:
+   455 ;;		_changeLEDstate
+   456 ;; This function is called by:
+   457 ;;		Interrupt level 1
+   458 ;; This function uses a non-reentrant model
+   459 ;;
+   460                           
+   461                           	psect	intcodelo
+   462  000018                     __pintcodelo:
+   463                           	opt stack 0
+   464  000018                     _InterruptHandlerLow:
+   465                           	opt stack 27
+   466                           
+   467                           ;incstack = 0
+   468  000018  801F               	bsf	btemp,0,c	;set compiler interrupt flag (level 1)
+   469  00001A  CFD8 F005          	movff	status,??_InterruptHandlerLow
+   470  00001E  CFE8 F006          	movff	wreg,??_InterruptHandlerLow+1
+   471  000022  CFE0 F007          	movff	bsr,??_InterruptHandlerLow+2
+   472  000026  CFFA F008          	movff	pclath,??_InterruptHandlerLow+3
+   473  00002A  CFFB F009          	movff	pclatu,??_InterruptHandlerLow+4
+   474  00002E  CFE9 F00A          	movff	fsr0l,??_InterruptHandlerLow+5
+   475  000032  CFEA F00B          	movff	fsr0h,??_InterruptHandlerLow+6
+   476  000036  CFE1 F00C          	movff	fsr1l,??_InterruptHandlerLow+7
+   477  00003A  CFE2 F00D          	movff	fsr1h,??_InterruptHandlerLow+8
+   478  00003E  CFD9 F00E          	movff	fsr2l,??_InterruptHandlerLow+9
+   479  000042  CFDA F00F          	movff	fsr2h,??_InterruptHandlerLow+10
+   480  000046  CFF3 F010          	movff	prodl,??_InterruptHandlerLow+11
+   481  00004A  CFF4 F011          	movff	prodh,??_InterruptHandlerLow+12
+   482  00004E  CFF6 F012          	movff	tblptrl,??_InterruptHandlerLow+13
+   483  000052  CFF7 F013          	movff	tblptrh,??_InterruptHandlerLow+14
+   484  000056  CFF8 F014          	movff	tblptru,??_InterruptHandlerLow+15
+   485  00005A  CFF5 F015          	movff	tablat,??_InterruptHandlerLow+16
+   486                           
+   487                           ;main.c: 57: if (INTCONbits.TMR0IF) {
+   488  00005E  A4F2               	btfss	intcon,2,c	;volatile
+   489  000060  D003               	goto	i1l64
+   490                           
+   491                           ;main.c: 58: changeLEDstate();
+   492  000062  ECFE  F000         	call	_changeLEDstate	;wreg free
+   493                           
+   494                           ;main.c: 60: INTCONbits.TMR0IF=0;
+   495  000066  94F2               	bcf	intcon,2,c	;volatile
+   496  000068                     i1l64:
+   497  000068  C015  FFF5         	movff	??_InterruptHandlerLow+16,tablat
+   498  00006C  C014  FFF8         	movff	??_InterruptHandlerLow+15,tblptru
+   499  000070  C013  FFF7         	movff	??_InterruptHandlerLow+14,tblptrh
+   500  000074  C012  FFF6         	movff	??_InterruptHandlerLow+13,tblptrl
+   501  000078  C011  FFF4         	movff	??_InterruptHandlerLow+12,prodh
+   502  00007C  C010  FFF3         	movff	??_InterruptHandlerLow+11,prodl
+   503  000080  C00F  FFDA         	movff	??_InterruptHandlerLow+10,fsr2h
+   504  000084  C00E  FFD9         	movff	??_InterruptHandlerLow+9,fsr2l
+   505  000088  C00D  FFE2         	movff	??_InterruptHandlerLow+8,fsr1h
+   506  00008C  C00C  FFE1         	movff	??_InterruptHandlerLow+7,fsr1l
+   507  000090  C00B  FFEA         	movff	??_InterruptHandlerLow+6,fsr0h
+   508  000094  C00A  FFE9         	movff	??_InterruptHandlerLow+5,fsr0l
+   509  000098  C009  FFFB         	movff	??_InterruptHandlerLow+4,pclatu
+   510  00009C  C008  FFFA         	movff	??_InterruptHandlerLow+3,pclath
+   511  0000A0  C007  FFE0         	movff	??_InterruptHandlerLow+2,bsr
+   512  0000A4  C006  FFE8         	movff	??_InterruptHandlerLow+1,wreg
+   513  0000A8  C005  FFD8         	movff	??_InterruptHandlerLow,status
+   514  0000AC  901F               	bcf	btemp,0,c	;clear compiler interrupt flag (level 1)
+   515  0000AE  0010               	retfie	
+   516  0000B0                     __end_of_InterruptHandlerLow:
+   517                           	opt stack 0
+   518                           pclatu	equ	0xFFB
+   519                           pclath	equ	0xFFA
+   520                           tblptru	equ	0xFF8
+   521                           tblptrh	equ	0xFF7
+   522                           tblptrl	equ	0xFF6
+   523                           tablat	equ	0xFF5
+   524                           prodh	equ	0xFF4
+   525                           prodl	equ	0xFF3
+   526                           intcon	equ	0xFF2
+   527                           intcon2	equ	0xFF1
+   528                           fsr0h	equ	0xFEA
+   529                           fsr0l	equ	0xFE9
+   530                           wreg	equ	0xFE8
+   531                           fsr1h	equ	0xFE2
+   532                           fsr1l	equ	0xFE1
+   533                           bsr	equ	0xFE0
+   534                           fsr2h	equ	0xFDA
+   535                           fsr2l	equ	0xFD9
+   536                           status	equ	0xFD8
+   537                           
+   538 ;; *************** function _changeLEDstate *****************
+   539 ;; Defined at:
+   540 ;;		line 44 in file "main.c"
+   541 ;; Parameters:    Size  Location     Type
+   542 ;;		None
+   543 ;; Auto vars:     Size  Location     Type
+   544 ;;		None
+   545 ;; Return value:  Size  Location     Type
+   546 ;;		None               void
+   547 ;; Registers used:
+   548 ;;		wreg, status,2, status,0, cstack
+   549 ;; Tracked objects:
+   550 ;;		On entry : 0/0
+   551 ;;		On exit  : 0/0
+   552 ;;		Unchanged: 0/0
+   553 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2
+   554 ;;      Params:         0       0       0       0
+   555 ;;      Locals:         0       0       0       0
+   556 ;;      Temps:          0       0       0       0
+   557 ;;      Totals:         0       0       0       0
+   558 ;;Total ram usage:        0 bytes
+   559 ;; Hardware stack levels used:    1
+   560 ;; Hardware stack levels required when called:    1
+   561 ;; This function calls:
+   562 ;;		i1_getLDR
+   563 ;; This function is called by:
+   564 ;;		_InterruptHandlerLow
+   565 ;; This function uses a non-reentrant model
+   566 ;;
+   567                           
+   568                           	psect	text4
+   569  0001FC                     __ptext4:
+   570                           	opt stack 0
+   571  0001FC                     _changeLEDstate:
+   572                           	opt stack 27
+   573                           
+   574                           ;main.c: 46: ADResult=getLDR();
+   575                           
+   576                           ;incstack = 0
+   577  0001FC  ECE3  F000         	call	i1_getLDR	;wreg free
+   578  000200  C001  F01C         	movff	?i1_getLDR,_ADResult
+   579  000204  C002  F01D         	movff	?i1_getLDR+1,_ADResult+1
+   580                           
+   581                           ;main.c: 49: } else {
+   582  000208  0012               	return	
+   583  00020A                     __end_of_changeLEDstate:
+   584                           	opt stack 0
+   585                           pclatu	equ	0xFFB
+   586                           pclath	equ	0xFFA
+   587                           tblptru	equ	0xFF8
+   588                           tblptrh	equ	0xFF7
+   589                           tblptrl	equ	0xFF6
+   590                           tablat	equ	0xFF5
+   591                           prodh	equ	0xFF4
+   592                           prodl	equ	0xFF3
+   593                           intcon	equ	0xFF2
+   594                           intcon2	equ	0xFF1
+   595                           fsr0h	equ	0xFEA
+   596                           fsr0l	equ	0xFE9
+   597                           wreg	equ	0xFE8
+   598                           fsr1h	equ	0xFE2
+   599                           fsr1l	equ	0xFE1
+   600                           bsr	equ	0xFE0
+   601                           fsr2h	equ	0xFDA
+   602                           fsr2l	equ	0xFD9
+   603                           status	equ	0xFD8
+   604                           
+   605 ;; *************** function i1_getLDR *****************
+   606 ;; Defined at:
+   607 ;;		line 30 in file "main.c"
+   608 ;; Parameters:    Size  Location     Type
+   609 ;;		None
+   610 ;; Auto vars:     Size  Location     Type
+   611 ;;		None
+   612 ;; Return value:  Size  Location     Type
+   613 ;;                  2    0[COMRAM] unsigned int 
+   614 ;; Registers used:
+   615 ;;		wreg, status,2, status,0
+   616 ;; Tracked objects:
+   617 ;;		On entry : 0/0
+   618 ;;		On exit  : 0/0
+   619 ;;		Unchanged: 0/0
+   620 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2
+   621 ;;      Params:         2       0       0       0
+   622 ;;      Locals:         0       0       0       0
+   623 ;;      Temps:          2       0       0       0
+   624 ;;      Totals:         4       0       0       0
+   625 ;;Total ram usage:        4 bytes
+   626 ;; Hardware stack levels used:    1
+   627 ;; This function calls:
+   628 ;;		Nothing
+   629 ;; This function is called by:
+   630 ;;		_changeLEDstate
+   631 ;; This function uses a non-reentrant model
+   632 ;;
+   633                           
+   634                           	psect	text5
+   635  0001C6                     __ptext5:
+   636                           	opt stack 0
+   637  0001C6                     i1_getLDR:
+   638                           	opt stack 27
+   639                           
+   640                           ;main.c: 32: ADCON0bits.GO=1;
+   641                           
+   642                           ;incstack = 0
+   643  0001C6  82C2               	bsf	4034,1,c	;volatile
+   644  0001C8                     i1l52:
+   645  0001C8  B2C2               	btfsc	4034,1,c	;volatile
+   646  0001CA  D7FE               	goto	i1l52
+   647                           
+   648                           ;main.c: 36: ADResult =ADRESL;
+   649  0001CC  CFC3 F01C          	movff	4035,_ADResult	;volatile
+   650  0001D0  6A1D               	clrf	_ADResult+1,c
+   651                           
+   652                           ;main.c: 37: ADResult += ((unsigned int)ADRESH << 8);
+   653  0001D2  50C4               	movf	4036,w,c	;volatile
+   654  0001D4  261D               	addwf	_ADResult+1,f,c
+   655                           
+   656                           ;main.c: 39: ADResult = ADResult>>2;
+   657  0001D6  C01C  F003         	movff	_ADResult,??i1_getLDR
+   658  0001DA  C01D  F004         	movff	_ADResult+1,??i1_getLDR+1
+   659  0001DE  90D8               	bcf	status,0,c
+   660  0001E0  3204               	rrcf	??i1_getLDR+1,f,c
+   661  0001E2  3203               	rrcf	??i1_getLDR,f,c
+   662  0001E4  90D8               	bcf	status,0,c
+   663  0001E6  3204               	rrcf	??i1_getLDR+1,f,c
+   664  0001E8  3203               	rrcf	??i1_getLDR,f,c
+   665  0001EA  C003  F01C         	movff	??i1_getLDR,_ADResult
+   666  0001EE  C004  F01D         	movff	??i1_getLDR+1,_ADResult+1
+   667                           
+   668                           ;main.c: 41: return ADResult;
+   669  0001F2  C01C  F001         	movff	_ADResult,?i1_getLDR
+   670  0001F6  C01D  F002         	movff	_ADResult+1,?i1_getLDR+1
+   671  0001FA  0012               	return	
+   672  0001FC                     __end_ofi1_getLDR:
+   673                           	opt stack 0
+   674  0000                     pclatu	equ	0xFFB
+   675                           pclath	equ	0xFFA
+   676                           tblptru	equ	0xFF8
+   677                           tblptrh	equ	0xFF7
+   678                           tblptrl	equ	0xFF6
+   679                           tablat	equ	0xFF5
+   680                           prodh	equ	0xFF4
+   681                           prodl	equ	0xFF3
+   682                           intcon	equ	0xFF2
+   683                           intcon2	equ	0xFF1
+   684                           fsr0h	equ	0xFEA
+   685                           fsr0l	equ	0xFE9
+   686                           wreg	equ	0xFE8
+   687                           fsr1h	equ	0xFE2
+   688                           fsr1l	equ	0xFE1
+   689                           bsr	equ	0xFE0
+   690                           fsr2h	equ	0xFDA
+   691                           fsr2l	equ	0xFD9
+   692                           status	equ	0xFD8
+   693                           pclatu	equ	0xFFB
+   694                           pclath	equ	0xFFA
+   695                           tblptru	equ	0xFF8
+   696                           tblptrh	equ	0xFF7
+   697                           tblptrl	equ	0xFF6
+   698                           tablat	equ	0xFF5
+   699                           prodh	equ	0xFF4
+   700                           prodl	equ	0xFF3
+   701                           intcon	equ	0xFF2
+   702                           intcon2	equ	0xFF1
+   703                           fsr0h	equ	0xFEA
+   704                           fsr0l	equ	0xFE9
+   705                           wreg	equ	0xFE8
+   706                           fsr1h	equ	0xFE2
+   707                           fsr1l	equ	0xFE1
+   708                           bsr	equ	0xFE0
+   709                           fsr2h	equ	0xFDA
+   710                           fsr2l	equ	0xFD9
+   711                           status	equ	0xFD8
+   712                           
+   713                           	psect	rparam
+   714  0000                     pclatu	equ	0xFFB
+   715                           pclath	equ	0xFFA
+   716                           tblptru	equ	0xFF8
+   717                           tblptrh	equ	0xFF7
+   718                           tblptrl	equ	0xFF6
+   719                           tablat	equ	0xFF5
+   720                           prodh	equ	0xFF4
+   721                           prodl	equ	0xFF3
+   722                           intcon	equ	0xFF2
+   723                           intcon2	equ	0xFF1
+   724                           fsr0h	equ	0xFEA
+   725                           fsr0l	equ	0xFE9
+   726                           wreg	equ	0xFE8
+   727                           fsr1h	equ	0xFE2
+   728                           fsr1l	equ	0xFE1
+   729                           bsr	equ	0xFE0
+   730                           fsr2h	equ	0xFDA
+   731                           fsr2l	equ	0xFD9
+   732                           status	equ	0xFD8
+   733                           
+   734                           	psect	temp
+   735  00001F                     btemp:
+   736                           	opt stack 0
+   737  00001F                     	ds	1
+   738  0000                     int$flags	set	btemp
+   739                           pclatu	equ	0xFFB
+   740                           pclath	equ	0xFFA
+   741                           tblptru	equ	0xFF8
+   742                           tblptrh	equ	0xFF7
+   743                           tblptrl	equ	0xFF6
+   744                           tablat	equ	0xFF5
+   745                           prodh	equ	0xFF4
+   746                           prodl	equ	0xFF3
+   747                           intcon	equ	0xFF2
+   748                           intcon2	equ	0xFF1
+   749                           fsr0h	equ	0xFEA
+   750                           fsr0l	equ	0xFE9
+   751                           wreg	equ	0xFE8
+   752                           fsr1h	equ	0xFE2
+   753                           fsr1l	equ	0xFE1
+   754                           bsr	equ	0xFE0
+   755                           fsr2h	equ	0xFDA
+   756                           fsr2l	equ	0xFD9
+   757                           status	equ	0xFD8
+
+
+Data Sizes:
+    Strings     0
+    Constant    0
+    Data        0
+    BSS         1
+    Persistent  2
+    Stack       0
+
+Auto Spaces:
+    Space          Size  Autos    Used
+    COMRAM           94     27      30
+    BANK0           160      0       0
+    BANK1           256      0       0
+    BANK2           256      0       0
+
+Pointer List with Targets:
+
+    None.
+
+Critical Paths under _main in COMRAM
+
+    _main->_LEDout
+
+Critical Paths under _InterruptHandlerLow in COMRAM
+
+    _changeLEDstate->i1_getLDR
+
+Critical Paths under _main in BANK0
+
+    None.
+
+Critical Paths under _InterruptHandlerLow in BANK0
+
+    None.
+
+Critical Paths under _main in BANK1
+
+    None.
+
+Critical Paths under _InterruptHandlerLow in BANK1
+
+    None.
+
+Critical Paths under _main in BANK2
+
+    None.
+
+Critical Paths under _InterruptHandlerLow in BANK2
+
+    None.
+
+Call Graph Tables:
+
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (0) _main                                                 0     0      0     109
+                             _LEDout
+                             _getLDR
+ ---------------------------------------------------------------------------------
+ (1) _getLDR                                               4     2      2       0
+                                             21 COMRAM     4     2      2
+ ---------------------------------------------------------------------------------
+ (1) _LEDout                                               6     4      2     109
+                                             21 COMRAM     6     4      2
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 1
+ ---------------------------------------------------------------------------------
+ (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+ ---------------------------------------------------------------------------------
+ (2) _InterruptHandlerLow                                 17    17      0       0
+                                              4 COMRAM    17    17      0
+                     _changeLEDstate
+ ---------------------------------------------------------------------------------
+ (3) _changeLEDstate                                       0     0      0       0
+                           i1_getLDR
+ ---------------------------------------------------------------------------------
+ (4) i1_getLDR                                             4     2      2       0
+                                              0 COMRAM     4     2      2
+ ---------------------------------------------------------------------------------
+ Estimated maximum stack depth 4
+ ---------------------------------------------------------------------------------
+
+ Call Graph Graphs:
+
+ _main (ROOT)
+   _LEDout
+   _getLDR
+
+ _InterruptHandlerLow (ROOT)
+   _changeLEDstate
+     i1_getLDR
+
+ Address spaces:
+Name               Size   Autos  Total    Cost      Usage
+BIGRAM             2FF      0       0      10        0.0%
+EEDATA             100      0       0       0        0.0%
+BITBANK2           100      0       0       8        0.0%
+BANK2              100      0       0       9        0.0%
+BITBANK1           100      0       0       6        0.0%
+BANK1              100      0       0       7        0.0%
+BITBANK0            A0      0       0       4        0.0%
+BANK0               A0      0       0       5        0.0%
+BITCOMRAM           5E      0       0       0        0.0%
+COMRAM              5E     1B      1E       1       31.9%
+BITSFR               0      0       0      40        0.0%
+SFR                  0      0       0      40        0.0%
+STACK                0      0       0       2        0.0%
+NULL                 0      0       0       0        0.0%
+ABS                  0      0      1E       3        0.0%
+DATA                 0      0      1E      11        0.0%
+CODE                 0      0       0       0        0.0%
+
+
+Microchip Technology PIC18 Macro Assembler V1.35 build -356382666 
+Symbol Table                                                                                   Mon Feb 05 17:27:14 2018
+
+      __end_of_changeLEDstate 020A                            l52 0192                            l70 012E  
+                          bsr 000FE0                           l810 00FA                           l822 012A  
+                         l824 0130                           l818 0118                           u140 0124  
+                         wreg 000FE8                  __CFG_LVP$OFF 000000                          _LATC 000F8B  
+                        _LATD 000F8C                          i1l52 01C8                          i1l64 0068  
+                        _main 00B4                          fsr0h 000FEA                          fsr1h 000FE2  
+                        fsr0l 000FE9                          fsr2h 000FDA                          fsr1l 000FE1  
+                        fsr2l 000FD9                          btemp 001F                          pclat 000FFA  
+                        prodh 000FF4                          prodl 000FF3                          start 00B0  
+                ___param_bank 000010               ?_changeLEDstate 0001                         ?_main 0001  
+                       _TMR0L 000FD6                         _TRISA 000F92                         _TRISC 000F94  
+                       _TRISD 000F95                         tablat 000FF5              __end_ofi1_getLDR 01FC  
+                       status 000FD8                __CFG_MCLRE$OFF 000000               __initialization 020A  
+                __end_of_main 013C                __CFG_OSC$IRCIO 000000                        ??_main 001C  
+               __activetblptr 000000                        _ADCON0 000FC2                        _ADCON1 000FC1  
+                      _ADCON2 000FC0                        _ADRESH 000FC4                        _ADRESL 000FC3  
+                      _ANSEL0 000FB8                        _ANSEL1 000FB9                __CFG_WDTEN$OFF 000000  
+                      _LEDout 013C                        _getLDR 0190                        tblptrh 000FF7  
+                      tblptrl 000FF6                        tblptru 000FF8                    __accesstop 0060  
+     __end_of__initialization 020C                 ___rparam_used 000001                __pcstackCOMRAM 0001  
+                   ?i1_getLDR 0001   __end_of_InterruptHandlerLow 00B0                       ?_LEDout 0016  
+                  __pnvCOMRAM 001C              ??_changeLEDstate 0005                       ?_getLDR 0016  
+                  ??i1_getLDR 0003               __size_of_LEDout 0054                       __Hparam 0000  
+                     __Lparam 0000               __size_of_getLDR 0036                       __pcinit 020A  
+                     __ramtop 0300                       __ptext0 00B4                       __ptext1 0190  
+                     __ptext2 013C                       __ptext4 01FC                       __ptext5 01C6  
+                   _T0CONbits 000FD5          end_of_initialization 020C                  LEDout@number 0016  
+              __end_of_LEDout 0190                __end_of_getLDR 01C6           start_initialization 020A  
+           __size_ofi1_getLDR 0036                      ??_LEDout 0018                      ??_getLDR 0018  
+                 __pbssCOMRAM 001E  __size_of_InterruptHandlerLow 0098                   __pintcodelo 0018  
+                    _ADResult 001C                      _RCONbits 000FD0                    _ADCON0bits 000FC2  
+     __size_of_changeLEDstate 000E                      i1_getLDR 01C6                   _INTCON2bits 000FF1  
+                    __Hrparam 0000                      __Lrparam 0000                      _ledCount 001E  
+               __size_of_main 0088                      int$flags 001F           _InterruptHandlerLow 0018  
+                  _INTCONbits 000FF2                      intlevel1 0000          ?_InterruptHandlerLow 0001  
+              _changeLEDstate 01FC         ??_InterruptHandlerLow 0005  
